@@ -44,55 +44,35 @@ Below are diagrams illustrating the overall node structure and the event process
 
 **1. Node Cluster and Communication:**
 
-This diagram shows the basic setup of the simulated nodes and how they communicate.
+This diagram shows the basic setup of the simulated nodes and how initial events can be triggered for them.
 
 ```mermaid
-graph LR
+graph TD
+    TriggeringEvents["Initial Proposal / Timeout Events"]
+
     subgraph Node_Cluster [Local Node Cluster]
         direction LR
         N1["Node 1 (P:8000)"]:::nodeStyle
         N2["Node 2 (P:8001)"]:::nodeStyle
         N3["Node 3 (P:8002)"]:::nodeStyle
         N4["Node 4 (P:8003)"]:::nodeStyle
-
-        subgraph N1_Internals [Node 1 Internals]
-            direction TB
-            EQ1[Event Queue] --> AP1{Async Event Processor}
-        end
-        subgraph N2_Internals [Node 2 Internals]
-            direction TB
-            EQ2[Event Queue] --> AP2{Async Event Processor}
-        end
-        subgraph N3_Internals [Node 3 Internals]
-            direction TB
-            EQ3[Event Queue] --> AP3{Async Event Processor}
-        end
-        subgraph N4_Internals [Node 4 Internals]
-            direction TB
-            EQ4[Event Queue] --> AP4{Async Event Processor}
-        end
-
-        N1 <-->|Express REST API| N2
-        N1 <-->|Express REST API| N3
-        N1 <-->|Express REST API| N4
-        N2 <-->|Express REST API| N3
-        N2 <-->|Express REST API| N4
-        N3 <-->|Express REST API| N4
     end
 
-    ExternalStimulus["External Stimulus (Initial Msg / Timeout)"] --> N1_Internals
-    ExternalStimulus --> N2_Internals
-    ExternalStimulus --> N3_Internals
-    ExternalStimulus --> N4_Internals
+    TriggeringEvents --> N1
+    TriggeringEvents --> N2
+    TriggeringEvents --> N3
+    TriggeringEvents --> N4
+
+    classDef nodeStyle fill:#f9f,stroke:#333,stroke-width:2px;
 ```
-This diagram illustrates the interaction between local nodes, each containing an event queue and processor, communicating via REST APIs.
+**Note:** The diagram above illustrates the initial triggering of events to each node. All four nodes (Node 1 to Node 4) are interconnected and communicate with each other via Express REST APIs to exchange consensus messages. These peer-to-peer connections are not explicitly drawn to maintain visual clarity.
 
 **2. Single Node Event Processing Flow:**
 
 This flowchart depicts the lifecycle of an event within a single node.
 
 ```mermaid
-graph TD
+graph LR
     A["Message Received / Timeout Occurs"] --> B{"Event Generated (Proposal, Vote, Timeout)"};
     B --> C["Add Event to Node's Event Queue"];
     C --> D{"Async Routine Periodically Checks Queue"};
