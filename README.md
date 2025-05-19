@@ -109,13 +109,77 @@ src/
 ## 🚀 Getting Started
 
 ```bash
+# Clone the repository
+git clone https://github.com/0xPexy/LogicMint.git
+cd LogicMint
+
+# Install dependencies
 npm install
+
+# Build the TypeScript code
 npm run build
+
+# Start the simulation
 npm start
 ```
 
-This will compile the code and launch 4 simulated nodes that  
-communicate locally and execute a full pBFT consensus round in the console.
+This will compile the TypeScript code and launch 4 simulated nodes. These nodes will then communicate locally using Express REST APIs to execute pBFT consensus rounds. Observe the console output to see message exchanges, round changes, state transitions, and consensus decisions.
+
+You should see output similar to this, indicating successful consensus:
+
+```markdown
+[2] New round (1, 0)/(1, 0)
+[2] Propose (1, 0)/(1, 0)
+[1] New round (1, 0)/(1, 0)
+[1] Propose (1, 0)/(1, 0)
+[0] New round (1, 0)/(1, 0)
+[0] Propose (1, 0)/(1, 0)
+[0] 0 is a proposer
+[0] Prevote (1, 0)/(1, 0)
+[3] New round (1, 0)/(1, 0)
+[3] Propose (1, 0)/(1, 0)
+[2] Prevote (1, 0)/(1, 0)
+[1] Prevote (1, 0)/(1, 0)
+[3] Prevote (1, 0)/(1, 0)
+[0] Precommit (1, 0)/(1, 0)
+[2] Precommit (1, 0)/(1, 0)
+[1] Precommit (1, 0)/(1, 0)
+[3] Precommit (1, 0)/(1, 0)
+[0] Commit (1, 0)/(1, 0)
+[0] block 1747637701 committed.
+[2] Commit (1, 0)/(1, 0)
+[2] block 1747637701 committed.
+[1] Commit (1, 0)/(1, 0)
+[1] block 1747637701 committed.
+[3] Commit (1, 0)/(1, 0)
+[3] block 1747637701 committed.
+[0] New round (2, 0)/(2, 0)
+[0] Propose (2, 0)/(2, 0)
+[0] 0 is a proposer
+[0] Prevote (2, 0)/(2, 0)
+[1] New round (2, 0)/(2, 0)
+[1] Propose (2, 0)/(2, 0)
+[2] New round (2, 0)/(2, 0)
+[2] Propose (2, 0)/(2, 0)
+[3] New round (2, 0)/(2, 0)
+[3] Propose (2, 0)/(2, 0)
+[1] Prevote (2, 0)/(2, 0)
+[2] Prevote (2, 0)/(2, 0)
+[3] Prevote (2, 0)/(2, 0)
+[0] Precommit (2, 0)/(2, 0)
+[1] Precommit (2, 0)/(2, 0)
+[2] Precommit (2, 0)/(2, 0)
+[3] Precommit (2, 0)/(2, 0)
+[0] Commit (2, 0)/(2, 0)
+[0] block 1747637706 committed.
+[1] Commit (2, 0)/(2, 0)
+[1] block 1747637706 committed.
+[2] Commit (2, 0)/(2, 0)
+[2] block 1747637706 committed.
+[3] Commit (2, 0)/(2, 0)
+[3] block 1747637706 committed.
+# ... and so on for subsequent rounds, demonstrating continuous consensus.
+```
 
 ---
 
