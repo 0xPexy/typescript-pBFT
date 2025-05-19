@@ -93,17 +93,17 @@ This flowchart depicts the lifecycle of an event within a single node.
 
 ```mermaid
 graph TD
-    A[Message Received / Timeout Occurs] --> B{Event Generated (Proposal, Vote, Timeout)};
-    B --> C[Add Event to Node's Event Queue];
-    C --> D{Async Routine Periodically Checks Queue};
-    D -- Event Found --> E[Process Event by Type];
-    E -- Proposal Event --> F[Validate Proposal & Update State];
-    E -- Vote Event --> G[Aggregate Votes & Update State];
-    E -- Timeout Event --> H[Handle Timeout (e.g., New Round, Send Nil Vote)];
-    F --> I[Generate Outgoing Messages (e.g., Votes)];
+    A["Message Received / Timeout Occurs"] --> B{"Event Generated (Proposal, Vote, Timeout)"};
+    B --> C["Add Event to Node's Event Queue"];
+    C --> D{"Async Routine Periodically Checks Queue"};
+    D -- Event Found --> E["Process Event by Type"];
+    E -- Proposal Event --> F["Validate Proposal & Update State"];
+    E -- Vote Event --> G["Aggregate Votes & Update State"];
+    E -- Timeout Event --> H["Handle Timeout (e.g., New Round, Send Nil Vote)"];
+    F --> I["Generate Outgoing Messages (e.g., Votes)"];
     G --> I;
     H --> I;
-    I --> J[Send Messages to Peers via Express REST API];
+    I --> J["Send Messages to Peers via Express REST API"];
     D -- Queue Empty --> D;
 ```
 This flowchart shows how incoming messages or timeouts trigger events, which are queued and then processed asynchronously to drive the consensus logic.
